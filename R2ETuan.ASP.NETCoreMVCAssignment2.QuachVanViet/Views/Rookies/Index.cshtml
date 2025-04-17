@@ -1,0 +1,71 @@
+﻿@using ASP.NETCoreMVCAssignment1.QuachVanViet.Enum
+@model List<R2ETuan.ASP.NETCoreMVCAssignment1.QuachVanViet.Models.Person>
+
+<h2>Rookies List</h2>
+
+<div class="mb-3">
+    <form asp-action="Index" method="get">
+        <label for="filter">Filter Results:</label>
+        <select name="filter" id="filter" class="form-control d-inline w-auto" onchange="this.form.submit()">
+            <option value="@Filter.All" selected="@(ViewBag.Filter == Filter.All)">All People</option>
+            <option value="@Filter.Males" selected="@(ViewBag.Filter == Filter.Males)">Male Members</option>
+            <option value="@Filter.Oldest" selected="@(ViewBag.Filter == Filter.Oldest)">Oldest Member</option>
+            <option value="@Filter.FullNames" selected="@(ViewBag.Filter == Filter.FullNames)">Full Names Only</option>
+            <option value="@Filter.Born2000" selected="@(ViewBag.Filter == Filter.Born2000)">Born in 2000</option>
+            <option value="@Filter.BornAfter2000" selected="@(ViewBag.Filter == Filter.BornAfter2000)">Born After 2000</option>
+            <option value="@Filter.BornBefore2000" selected="@(ViewBag.Filter == Filter.BornBefore2000)">Born Before 2000</option>
+        </select>
+    </form>
+</div>
+
+<a asp-action="Create" class="btn btn-success mb-3">Create</a>
+<a asp-action="ExportToExcel" class="btn btn-primary mb-3">Export to Excel</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            @if (ViewBag.Filter != Filter.FullNames)
+            {
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Phone Number</th>
+                <th>Birth Place</th>
+                <th>Is Graduated</th>
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td><a asp-action="Details" asp-route-id="@person.Id" style="text-decoration: none; color: black">@($"{person.LastName} {person.FirstName}")</a></td>
+                    @if (ViewBag.Filter != Filter.FullNames)
+                    {
+                        <td>@person.Gender</td>
+                        <td>@person.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                        <td>@person.PhoneNumber</td>
+                        <td>@person.BirthPlace</td>
+                        <td>@(person.IsGraduated ? "Yes" : "No")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@person.Id" class="btn btn-warning btn-warning shadow-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@person.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this person?');" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="@(ViewBag.Filter == Filter.FullNames ? 1 : 8)">No results found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
