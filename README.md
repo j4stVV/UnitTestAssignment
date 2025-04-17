@@ -1,11 +1,8 @@
 # Unit Testing
 
-This project contains unit tests for the `RookiesController`, `PersonService`, and `PersonRepository` in an ASP.NET Core MVC application (`Assignment04-05-MVC`). The tests validate the functionality of controller actions, service methods, and repository operations, ensuring robust code quality and reliability. The unit tests are designed to achieve at least **70% code coverage** for the implemented controller and business logic.
+This project contains unit tests for the `RookiesController`, `PersonService`, and `PersonRepository` in an ASP.NET Core MVC application. The tests validate the functionality of controller actions, service methods, and repository operations, ensuring robust code quality and reliability. The unit tests are designed to achieve at least **70% code coverage** for the implemented controller and business logic.
 
 ## Position
-
--   **Branch**: `unit_test`
--   **Folder**: `Assignment04-05-MVC`
 -   **Quick Access**: [j4stVV/UnitTestAssignment](https://github.com/j4stVV/UnitTestAssignment)
 
 ## Content
@@ -24,7 +21,7 @@ This project contains unit tests for the `RookiesController`, `PersonService`, a
 
 ### Implementation
 
-All test cases are located in the `Assignment04-05-MVC.Tests` project, structured as follows:
+All test cases are located in the `TestProject` project, structured as follows:
 
 -   **GlobalTestData**: Contains mock data used across tests to simulate repository responses.
 -   **Services > PersonServiceTests**:
